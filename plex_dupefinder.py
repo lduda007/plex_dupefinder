@@ -227,6 +227,19 @@ def write_decision(title=None, keeping=None, removed=None):
     return
 
 
+dry_run_filename = os.path.join(os.path.dirname(os.path.realpath(sys.argv[0])), 'dry_run.log')
+
+
+def write_dry_run(filename=None):
+    lines = []
+    if filename:
+        lines.append('\nrm %s' % filename)
+
+    with open(dry_run_filename, 'a') as fp:
+        fp.writelines(lines)
+    return
+
+
 def should_skip(files):
     for files_item in files:
         for skip_item in cfg.SKIP_LIST:
@@ -421,7 +434,10 @@ if __name__ == "__main__":
                         write_decision(keeping=part_info)
                     else:
                         print("\tRemoving : %r" % media_id)
-                        delete_item(part_info['show_key'], media_id)
+                        if cfg.DRY_RUN:
+                            write_dry_run(part_info['file'])
+                        else:
+                            delete_item(part_info['show_key'], media_id)
                         write_decision(removed=part_info)
                         time.sleep(2)
             elif keep_item.lower() == 's' or int(keep_item) == 0:
@@ -462,7 +478,10 @@ if __name__ == "__main__":
                         if should_skip(part_info['file']):
                             print("\tSkipping removal of this item as there is a match in SKIP_LIST")
                             continue
-                        delete_item(part_info['show_key'], media_id)
+                        if cfg.DRY_RUN:
+                            write_dry_run(part_info['file'])
+                        else:
+                            delete_item(part_info['show_key'], media_id)
                         write_decision(removed=part_info)
                         time.sleep(2)
             else:

@@ -24,6 +24,7 @@ base_config = {
     'SKIP_LIST': [],
     'SCORE_FILESIZE': True,
     'AUTO_DELETE': False,
+    'DRY_RUN': False,
     'FIND_DUPLICATE_FILEPATHS_ONLY': False
 }
 cfg = None
