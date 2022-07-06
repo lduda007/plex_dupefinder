@@ -25,6 +25,7 @@ base_config = {
     'SCORE_FILESIZE': True,
     'AUTO_DELETE': False,
     'DRY_RUN': False,
+    'DRY_RUN_DELETE_DIR': True,
     'FIND_DUPLICATE_FILEPATHS_ONLY': False
 }
 cfg = None

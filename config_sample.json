@@ -15,6 +15,7 @@
   },
   "AUTO_DELETE": false,
   "DRY_RUN": false,
+  "DRY_RUN_DELETE_DIR": true,
   "FIND_DUPLICATE_FILEPATHS_ONLY": false,
   "FILENAME_SCORES": {
     "*.avi": -1000,

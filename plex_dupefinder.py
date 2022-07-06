@@ -230,10 +230,13 @@ def write_decision(title=None, keeping=None, removed=None):
 dry_run_filename = os.path.join(os.path.dirname(os.path.realpath(sys.argv[0])), 'dry_run.log')
 
 
-def write_dry_run(filename=None):
+def write_dry_run(filenames=None):
     lines = []
-    if filename:
-        lines.append('\nrm %s' % filename)
+    for filename in filenames:
+        if cfg.DRY_RUN_DELETE_DIR:
+            lines.append('\nrm -r %s' % filename.rsplit('/', 1)[0])
+        else:
+            lines.append('\nrm %s' % filename)
 
     with open(dry_run_filename, 'a') as fp:
         fp.writelines(lines)
